@@ -29,10 +29,6 @@ kernel void convolution(
   int globalCol = groupStartCol + localCol;
   int globalRow = groupStartRow + localRow;
 
-#if 0
-  if(globalRow < rows && globalCol < cols)
-    imageOut[globalRow*cols + globalCol] = imageIn[globalRow*cols + globalCol];
-#endif
   // Cache the data to local memory
 
   // Step down rows
