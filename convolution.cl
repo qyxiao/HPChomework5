@@ -34,15 +34,15 @@ kernel void convolution(
   // Step down rows
   for(int i = localRow; i < localHeight; i += get_local_size(1)) {
 
-    int curRow = groupStartRow+i;
+    int curRow = groupStartRow+i-filterRadius;
 
     // Step across columns
     for(int j = localCol; j < localWidth; j += get_local_size(0)) {
 
-      int curCol = groupStartCol+j;
+      int curCol = groupStartCol+j-filterRadius;
 
       // Perform the read if it is in bounds
-      if(curRow < rows && curCol < cols) {
+      if(curRow >=0 && curCol >= 0 && curRow < rows && curCol < cols) {
         localImage[i*localWidth + j] = imageIn[curRow*cols+curCol];
       }
     }
@@ -50,7 +50,8 @@ kernel void convolution(
   barrier(CLK_LOCAL_MEM_FENCE);
 
   // Perform the convolution
-  if(globalRow < rows-padding && globalCol < cols-padding) {
+  if(globalRow < rows-filterRadius && globalCol < cols-filterRadius &&
+  globalRow >= filterRadius && globalCol >= filterRadius) {
 
     // Each work item will filter around its start location 
     //(starting from the filter radius left and up)
@@ -80,9 +81,11 @@ kernel void convolution(
     */
 
     // Write the data out
-    imageOut[(globalRow+filterRadius)*cols + (globalCol+filterRadius)] = sum;
+    imageOut[globalRow*cols + globalCol] = sum;
   }
-
+  else {
+    imageOut[globalRow*cols + globalCol] = 0.0;
+  }
   return;
 }
 
