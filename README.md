@@ -11,8 +11,19 @@ Below are performance of 100 iterations for different work group size run in Cud
 | bandwidth | 1.041264 | 1.009389 | 1.105271 | 1.059454 | 0.988360 | 
 | Flop/s | 6.292970 | 6.100331 | 6.679803 | 6.402906 | 5.973243 | 
 
-
-
+For 100 iterations in different devices:  
+Cuda3 (Tesla T10 Processor)  
+0.001563 s 
+138.158878 MPixels/s  
+1.105271 GBit/s  
+6.679803 GFlop/s   
+ 
+Cuda1 (GeForce GTX TITAN Black)  
+0.004570 s  
+47.264692 MPixels/s  
+0.378118 GBit/s  
+2.285187 GFlop/s  
+  
 
 Original Plot 
 ![image](https://github.com/qyxiao/HPChomework5/blob/master/Plot/test.jpg)
