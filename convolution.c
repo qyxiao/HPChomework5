@@ -247,6 +247,16 @@ int main(int argc, char *argv[])
   {
     CALL_CL_SAFE(clEnqueueNDRangeKernel(queue, knl, 2, NULL,
           global_size, local_size, 0, NULL, NULL));
+
+    CALL_CL_SAFE(clEnqueueReadBuffer(
+        queue, buf_congray, /*blocking*/ CL_TRUE, /*offset*/ 0,
+        xsize * ysize * sizeof(float), congray_cl,
+        0, NULL, NULL));
+
+    CALL_CL_SAFE(clEnqueueWriteBuffer(
+        queue, buf_gray, /*blocking*/ CL_TRUE, /*offset*/ 0,
+        deviceDataSize, congray_cl, 0, NULL, NULL));
+
   }
   CALL_CL_SAFE(clFinish(queue));
   get_timestamp(&toc);
@@ -258,13 +268,13 @@ int main(int argc, char *argv[])
   printf("%f GFlop/s\n", (xsize-HALF_FILTER_WIDTH)*(ysize-HALF_FILTER_WIDTH)
 	 *FILTER_WIDTH*FILTER_WIDTH/1e9/elapsed);
 
-  // --------------------------------------------------------------------------
-  // transfer back & check
-  // --------------------------------------------------------------------------
-  CALL_CL_SAFE(clEnqueueReadBuffer(
-        queue, buf_congray, /*blocking*/ CL_TRUE, /*offset*/ 0,
-        xsize * ysize * sizeof(float), congray_cl,
-        0, NULL, NULL));
+  // // --------------------------------------------------------------------------
+  // // transfer back & check
+  // // --------------------------------------------------------------------------
+  // CALL_CL_SAFE(clEnqueueReadBuffer(
+  //       queue, buf_congray, /*blocking*/ CL_TRUE, /*offset*/ 0,
+  //       xsize * ysize * sizeof(float), congray_cl,
+  //       0, NULL, NULL));
 
   // --------------------------------------------------------------------------
   // output OpenCL filtered image
