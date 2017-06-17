@@ -1,3 +1,3 @@
 # hpc-hw5
 
-![image](./Plot/output1.ppm)
+![image](https://github.com/qyxiao/HPChomework5/Plot/output1.ppm)
