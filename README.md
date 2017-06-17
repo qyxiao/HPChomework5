@@ -2,7 +2,7 @@
 
 
 Original Plot 
-![image](https://github.com/qyxiao/HPChomework5/Plot/test.png)
+![image](https://github.com/qyxiao/HPChomework5/tree/master/Plot/test.png)
 
 
 Plot after 1 operation
