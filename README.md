@@ -1,42 +1,28 @@
-# hpc-hw5
-
-For 100 iterations in different devices:
-Cuda3 (Tesla T10 Processor)
-0.001563 s
-138.158878 MPixels/s
-1.105271 GBit/s
-6.679803 GFlop/s
-
-Cuda1 (GeForce GTX TITAN Black)
-0.004570 s
-47.264692 MPixels/s
-0.378118 GBit/s
-2.285187 GFlop/s
-
-Below are performance of 100 iterations for different work group size run in Cuda3
-| work group size | 8 | 12 | 16| 18 | 20|
-| --- | --- | --- | --- | --- | --- |
-| time used(s) | 0.001660 | 0.001712 | 0.001563 | 0.001631 | 0.001748 | 
-| processed pixels/s | 130.157967 | 126.173612  | 138.158878 | 132.431793 | 123.545038  | 
-| bandwidth | 1.041264 | 1.009389 | 1.105271 | 1.059454 | 0.988360 | 
-| Flop/s | 6.292970 | 6.100331 | 6.679803 | 6.402906 | 5.973243 |
+# homework3
+Qiyu Xiao(qx344)
 
 
-Original Plot 
-![image](https://github.com/qyxiao/HPChomework5/blob/master/Plot/test.jpg)
+Below is time(second) consumed when transfering single int with three hosts crunchy1,crunchy3 and crunchy4 with option -ppn 1 
+
+| Thread Num/ Loop  | 10 | 50 | 100 | 500 | 
+| --- | --- | --- | --- | --- | 
+| 10 | 0.060414 | 0.122372 | 0.381758 | 1.623798 | 
+| 50 | 0.225866 | 0.720819 | 1.579400 | 7.707926 | 
+| 100 | 0.619412 | 2.056454 | 4.555320 | 20.955724 | 
+| 500 | 1.784055 | 6.171972 | 11.220639 | 50.669340 | 
+
+We can notice that time consumed roughly grows linearly with total communications(ThreadNum x Loop). And Thus we can estimate that the time needed for one communication is about 0.0005 second.
 
 
-Plot after 1 operation
-![image](https://github.com/qyxiao/HPChomework5/blob/master/Plot/output1.png)
+Below is time(second) consumed when transfering int array[524288](~2Mb) with three hosts crunchy1,crunchy3 and crunchy4 with option -ppn 1 
+
+| Thread Num/ Loop  | 10 | 50 | 100 |  
+| --- | --- | --- | --- | 
+| 10 | 2.228239  | 9.455117| 18.443947 | 
+| 50 | 14.703286 | 72.395926 | 143.868863 | 
+| 100 | 28.794298 | 147.561126 | 285.631170 | 
+
+Again the time grows linearly with total communications(ThreadNum x Loop). We can estimate the bandwidth using total data trasfered/time = (100x100x2Mb)/285 = 70Mb/second. 
 
 
-Plot after 50 operation
-![image](https://github.com/qyxiao/HPChomework5/blob/master/Plot/output50.png)
 
-
-Plot after 100 operation
-![image](https://github.com/qyxiao/HPChomework5/blob/master/Plot/output100.png)
-
-
-Plot after 200 operation
-![image](https://github.com/qyxiao/HPChomework5/blob/master/Plot/output200.png)
