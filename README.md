@@ -2,14 +2,12 @@
 
 For 100 iterations in different devices:
 Cuda3 (Tesla T10 Processor)
-
 0.001563 s
 138.158878 MPixels/s
 1.105271 GBit/s
 6.679803 GFlop/s
 
 Cuda1 (GeForce GTX TITAN Black)
-
 0.004570 s
 47.264692 MPixels/s
 0.378118 GBit/s
